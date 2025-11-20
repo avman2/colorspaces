@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two 600x600 Side-by-Side Images</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            max-width: 1300px; /* Accommodates two 600px images + padding */
+            margin: 0 auto;
+        }
+        .image-wrapper {
+            flex: 1;
+            max-width: 50%; /* Equal split for side-by-side */
+            padding: 10px;
+            text-align: center;
+        }
+        img {
+            width: 100%;
+            max-width: 600px; /* Caps at original size */
+            height: auto; /* Maintains 1:1 aspect ratio for squares */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        @media (max-width: 800px) { /* Stacks below 800px to fit 600px images */
+            .container {
+                flex-direction: column;
+            }
+            .image-wrapper {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>600x600 Images Side by Side</h1>
+    <div class="container">
+        <div class="image-wrapper">
+            <img src="GradRG_sRGB-std.jpg" alt="First 600x600 Image"> <!-- Replace with your file path -->
+            <p>Standard RGB</p>
+        </div>
+        <div class="image-wrapper">
+            <img src="GradRG_adobe-RGB.jpg" alt="Second 600x600 Image"> <!-- Replace with your file path -->
+            <p>Adobe-RGB.jpg</p>
+        </div>
+    </div>
+</body>
+</html>

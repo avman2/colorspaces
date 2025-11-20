@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Two Gradient Images from Six</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .selection-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+        .image-option {
+            text-align: center;
+            margin: 10px;
+            cursor: pointer;
+        }
+        .thumbnail {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            transition: border 0.3s;
+        }
+        .thumbnail:hover {
+            border-color: #007bff;
+        }
+        input[type="checkbox"] {
+            margin: 5px 0;
+            transform: scale(1.2);
+        }
+        .display-section {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        .container {
+            display: none; /* Hidden until two selected */
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .image-wrapper {
+            flex: 1;
+            max-width: 50%;
+            padding: 10px;
+            text-align: center;
+        }
+        .full-image {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+        .message {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+        @media (max-width: 800px) {
+            .container {
+                flex-direction: column;
+            }
+            .image-wrapper {
+                max-width: 100%;
+            }
+            .selection-section {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Select Two Gradient Images from Six</h1>
+    
+    <section class="selection-section">
+        <div class="image-option">
+            <img class="thumbnail" src="GradRG_sRGB-std.jpg" alt="sRGB Thumbnail">
+            <br>
+            <label><input type="checkbox" value="GradRG_sRGB-std.jpg"> sRGB</label>
+        </div>
+        <div class="image-option">
+            <img class="thumbnail" src="GradRG_DCIP3.jpg" alt="DCI-P3 (1) Thumbnail">
+            <br>
+            <label><input type="checkbox" value="GradRG_DCIP3.jpg"> DCI-P3 (1)</label>
+        </div>
+        <div class="image-option">
+            <img class="thumbnail" src="GradRG_adobe-RGB.jpg" alt="Adobe RGB Thumbnail">
+            <br>
+            <label><input type="checkbox" value="GradRG_adobe-RGB.jpg"> Adobe RGB</label>
+        </div>
+        <div class="image-option">
+            <img class="thumbnail" src="GradRG_WideGamut.jpg" alt="Wide Gamut Thumbnail">
+            <br>
+            <label><input type="checkbox" value="GradRG_WideGamut.jpg"> Wide Gamut</label>
+        </div>
+        <div class="image-option">
+            <img class="thumbnail" src="GradRG_DCIP3.jpg" alt="DCI-P3 (2) Thumbnail">
+            <br>
+            <label><input type="checkbox" value="GradRG_DCIP3.jpg"> DCI-P3 (2)</label>
+        </div>
+        <div class="image-option">
+            <img class="thumbnail" src="GradRG_BT2020.jpg" alt="BT.2020 Thumbnail">
+            <br>
+            <label><input type="checkbox" value="GradRG_BT2020.jpg"> BT.2020</label>
+        </div>
+    </section>
+
+    <section class="display-section">
+        <h2>Selected Images Side by Side</h2>
+        <p class="message">Select exactly two images above to view them here.</p>
+        <div class="container" id="displayContainer">
+            <div class="image-wrapper">
+                <img class="full-image" id="selectedImg1" src="" alt="Selected Image 1">
+                <p id="desc1">Description for Selected Image 1</p>
+            </div>
+            <div class="image-wrapper">
+                <img class="full-image" id="selectedImg2" src="" alt="Selected Image 2">
+                <p id="desc2">Description for Selected Image 2</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        const displayContainer = document.getElementById('displayContainer');
+        const message = document.querySelector('.message');
+        const selectedImg1 = document.getElementById('selectedImg1');
+        const selectedImg2 = document.getElementById('selectedImg2');
+        const desc1 = document.getElementById('desc1');
+        const desc2 = document.getElementById('desc2');
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked');
+                if (checkedBoxes.length > 2) {
+                    this.checked = false;
+                    alert('Please select exactly two images.');
+                    return;
+                }
+                if (checkedBoxes.length === 2) {
+                    displayContainer.style.display = 'flex';
+                    message.style.display = 'none';
+                    const selected = Array.from(checkedBoxes).map(cb => ({
+                        src: cb.value,
+                        label: cb.nextSibling.textContent.trim()
+                    }));
+                    selectedImg1.src = selected[0].src;
+                    desc1.textContent = selected[0].label;
+                    selectedImg2.src = selected[1].src;
+                    desc2.textContent = selected[1].label;
+                } else {
+                    displayContainer.style.display = 'none';
+                    message.style.display = 'block';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
