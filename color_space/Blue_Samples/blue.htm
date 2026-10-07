@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Blue Color Gamut Gallery</title>
 
 <style>
@@ -21,7 +22,6 @@ body{
 h1{
     text-align:center;
     margin-bottom:16px;
-    color:#0033cc;
 }
 
 .gallery{
@@ -61,7 +61,7 @@ h1{
 .download-btn{
     display:inline-block;
     padding:8px 14px;
-    background:#0052cc;
+    background:#2563eb;
     color:white;
     text-decoration:none;
     border-radius:6px;
@@ -69,7 +69,7 @@ h1{
 }
 
 .download-btn:hover{
-    background:#003d99;
+    background:#1d4ed8;
 }
 
 @media (min-width:768px){
@@ -89,67 +89,50 @@ h1{
 }
 </style>
 </head>
-
 <body>
 
 <h1>Blue Color Gamut Images</h1>
 
-<div class="gallery">
+<div id="gallery" class="gallery"></div>
 
-    <div class="card">
-        Blue_Adobe_RGB.png
-            Blue_Adobe_RGB.png
-        </a>
-        <div class="caption">Blue_Adobe_RGB.png</div>
-        <div class="actions">
-            Blue_Adobe_RGB.png
-                Download Full Resolution
-            </a>
-        </div>
-    </div>
+<script>
+const images = [
+    "Blue_Adobe_RGB.png",
+    "Blue_Adobe_RGB-c.png",
+    "Blue_dcip3.png",
+    "Blue_dcip3-c.png",
+    "Blue_Rec2020.png",
+    "Blue_Rec2020-c.png",
+    "Blue_sRGB.png",
+    "Blue_sRGB-c.png",
+    "Blue_wide_gamut.png"
+];
 
-    <div class="card">
-        Blue_Adobe_RGB-c.png
-            <img src="Blue_Adobe_RGB-c.png" alt="Blue_Adobe_RGB-c.caption">Blue_Adobe_RGB-c.png</div>
-        <div class="actions">
-            Blue_Adobe_RGB-c.png
-                Download Full Resolution
-            </a>
-        </div>
-    </div>
+const gallery = document.getElementById("gallery");
 
-    <div class="card">
-        Blue_dcip3.png
-            Blue_dcip3.png
-        </a>
-        <div class="caption">Blue_dcip3.png</div>
-        <div class="actions">
-            Blue_dcip3.png
-                Download Full Resolution
+images.forEach(file => {
+    gallery.insertAdjacentHTML(
+        "beforeend",
+        `
+        <div class="card">
+            <a href="${file}" target="_blank">
+                <img src="${file}" alt="${file}" loading="lazy">
             </a>
-        </div>
-    </div>
 
-    <div class="card">
-        Blue_dcip3-c.png
-            Blue_dcip3-c.png
-        </a>
-        <div class="caption">Blue_dcip3-c.png</div>
-        <div class="actions">
-            Blue_dcip3-c.png
-                Download Full Resolution
-            </a>
-        </div>
-    </div>
+            <div class="caption">${file}</div>
 
-    <div class="card">
-        Blue_Rec2020.png
-            Blue_Rec2020.png
-        </a>
-        <div class="caption">Blue_Rec2020.png</div>
-        <div class="actions">
-            Blue_Rec2020.png
-                Download Full Resolution
-            </a>
+            <div class="actions">
+                <a href="${file}"
+                   download
+                   class="download-btn">
+                   Download Full Resolution
+                </a>
+            </div>
         </div>
-   
+        `
+    );
+});
+</script>
+
+</body>
+</html>
